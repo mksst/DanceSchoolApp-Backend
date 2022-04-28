@@ -23,9 +23,10 @@ class AuthController {
           message: "Неверный пароль",
         })
 
-      const token = generateToken(newUser._id)
+      const token = generateToken(user._id)
+
       res.status(200).json({
-        userData: user,
+        user,
         token,
       })
     } catch (e) {
@@ -58,7 +59,6 @@ class AuthController {
       const hashedPassword = bcrypt.hashSync(password, 5)
       const newUser = await User.create({
         ...req.body,
-        accountType: "user",
         password: hashedPassword,
       })
 
